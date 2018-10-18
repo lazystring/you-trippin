@@ -1,0 +1,6 @@
+<input #tripName (keyup.enter)="onClickGetTripData(tripName.value)">
+<button (click)="onClickGetTripData(tripName.value)">Get trip data</button>
+
+<div *ngFor="let tripSample of tripSamples">
+  lat: {{tripSample.lng}}, lng: {{tripSample.lng}}
+</div>
