@@ -12,5 +12,6 @@
 * Render lat/lng coords on map as simple markers
 * Calculate distance between two consecutive lat/lng points
 * Use distance to calculate speed and render as a color
+* Find start and end city and display with trip.
 
 ![trippin](http://memecrunch.com/meme/B4U5/man-you-trippin/image.jpg)

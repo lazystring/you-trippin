@@ -1,0 +1,35 @@
+{
+  "styles": {
+    "standard": [
+      "positron"
+    ],
+    "custom": [],
+    "lang": "",
+    "langLatin": true,
+    "langAlts": true
+  },
+  "settings": {
+    "serve": {
+      "vector": true,
+      "raster": true,
+      "services": true,
+      "static": true
+    },
+    "raster": {
+      "format": "PNG_256",
+      "hidpi": 2,
+      "maxsize": 2048
+    },
+    "server": {
+      "title": "",
+      "redirect": "",
+      "domains": []
+    },
+    "memcache": {
+      "size": 4,
+      "servers": [
+        "localhost:11211"
+      ]
+    }
+  }
+}

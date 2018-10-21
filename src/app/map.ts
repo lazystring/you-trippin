@@ -1,29 +1,43 @@
-export interface IGeometry {
-  type: string;
-  coordinates: number[];
+import { GeoJSONSourceRaw, LngLat, Layer, GeoJSONSource } from 'mapbox-gl';
+import { Feature } from 'geojson';
+
+/** Converts a LngLat object to an array of coords, because nobody can agree. */
+function getGeoJsonCoordinates(locationSample: LngLat): [number, number] {
+  return [locationSample.lng, locationSample.lat];
 }
 
-export interface IGeoJson {
-  type: string;
-  geometry: IGeometry;
-  properties?: any;
-  $key?: string;
+export function createTripRouteData(tripLocationSamples: LngLat[]): Feature {
+  return {
+    type: 'Feature',
+    properties: {},
+    geometry: {
+      type: 'LineString',
+      coordinates: tripLocationSamples.map(getGeoJsonCoordinates),
+    }
+  };
 }
 
-export class GeoJson implements IGeoJson {
-  type = 'Feature';
-  geometry: IGeometry;
-
-  constructor(coordinates: number[], public properties?: any) {
-    this.geometry = {
-      type: 'Point',
-      coordinates: coordinates,
-    };
-  }
+/** Creates a data source for a trip route on a mapbox map. */
+export function createTripRouteSource(tripLocationSamples: LngLat[]):
+  GeoJSONSourceRaw {
+  return {
+    type: 'geojson',
+    lineMetrics: true,
+    data: createTripRouteData(tripLocationSamples),
+  };
 }
 
-export class FeatureCollection {
-  type = 'FeatureCollection'
-
-  constructor(public features: Array<GeoJson>) {}
+export function createTripRouteLayer(): Layer {
+  return {
+    id: 'route',
+    type: 'line',
+    source: 'route-source',
+    layout: {
+      'line-join': 'round',
+      'line-cap': 'round',
+    },
+    paint: {
+      'line-width': 8,
+    }
+  };
 }

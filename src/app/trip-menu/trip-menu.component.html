@@ -1,0 +1,11 @@
+<div *mobxAutorun="{ dontDetach: true }">
+  <input #tripSearchTerm (keyup)="onSearch(tripSearchTerm.value)" class="trip-search-input" placeholder="Trip name">
+
+  <button class="trip-button" *ngFor="let name of uiStore.filteredTripNames" (click)="onSelectTrip(name)">
+    Trip {{name}}
+  </button>
+
+  <div class="no-results" *ngIf="!uiStore.filteredTripNames.length">
+    No results.
+  </div>
+</div>

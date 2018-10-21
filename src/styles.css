@@ -1,1 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  --you-trippin-font-primary: 'Space Mono', monospace;
+  background-color: #343f51;  
+  font-family: var(--you-trippin-font-primary);
+  margin: 0;
+}

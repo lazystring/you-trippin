@@ -1,0 +1,21 @@
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 100%;
+}
+
+.hover-speed-card {
+  margin: 5px 0;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 10px 20px;
+  opacity: 0;
+  transition: opacity ease-in 0.1s;
+  width: 80px;
+  text-align: center;
+  margin-left: -60px;
+  margin-top: -50px;
+  pointer-events: none;
+}
