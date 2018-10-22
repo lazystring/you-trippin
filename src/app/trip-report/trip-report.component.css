@@ -1,0 +1,13 @@
+.report-card {
+  position: absolute;
+  top: 140px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  width: calc(100% - 280px);
+  height: calc(100% - 620px);
+  padding: 20px;
+}
+
+.report-header {
+  margin-bottom: 20px;
+}

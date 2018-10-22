@@ -1,0 +1,8 @@
+<div (window:resize)="onWindowResize(event)" *mobxAutorun>
+  <div #reportCard *ngIf="reportStore.tripToReport" class="report-card" [@slideInOut]>
+    <h3 class="trip-header">
+      Your {{ formattedDistanceMiles }} trip
+    </h3>
+    <div id="chart"></div>
+  </div>
+</div>

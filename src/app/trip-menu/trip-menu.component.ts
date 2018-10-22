@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TripService } from '../trip.service';
-import { UiStore } from '../stores/ui.store';
+import { TripMapStore } from '../stores/trip-map.store';
 import { Trip } from '../trip';
+import { TripMenuStore } from '../stores/trip-menu.store';
 
 @Component({
   selector: 'app-trip-menu',
@@ -12,19 +13,22 @@ import { Trip } from '../trip';
 export class TripMenuComponent implements OnInit {
   private tripNames: string[];
 
-  constructor(private tripService: TripService, private uiStore: UiStore) {
-  }
+  constructor(
+    private tripService: TripService,
+    private mapStore: TripMapStore,
+    private menuStore: TripMenuStore) { }
 
   ngOnInit() {
-    this.tripService.list().subscribe(data => this.uiStore.tripNames = data);
+    this.tripService.list().subscribe(
+      data => this.menuStore.setTripNames(data));
   }
 
   onSelectTrip(tripName: string) {
     this.tripService.get(tripName).subscribe(
-      (trip: Trip) => this.uiStore.setSelectedTrip(trip));
+      (trip: Trip) => this.mapStore.setSelectedTrip(trip));
   }
 
   onSearch(tripSearchTerm: string) {
-    this.uiStore.setFilter(tripSearchTerm);
+    this.menuStore.setFilter(tripSearchTerm);
   }
 }

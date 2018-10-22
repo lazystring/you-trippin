@@ -52,6 +52,22 @@ export interface Trip {
   totalDistanceMeters: number;
 }
 
+/**
+ *  Determines which speed sample in an array is closest to the given location.
+ */
+export function getClosestSpeedSample(
+  location: LngLat, candidates: TripSpeedSample[]): TripSpeedSample {
+  if (!candidates.length) return undefined;
+  let closest = candidates[0];
+  candidates.forEach(candidate => {
+    const distanceToCurrent = getDistanceMeters(location, candidate.location);
+    const distanceToClosest = getDistanceMeters(location, closest.location);
+    closest = distanceToCurrent < distanceToClosest ? candidate : closest;
+  });
+
+  return closest;
+}
+
 /** Computes the distance (in meters) between two sampled locations. */
 export function getDistanceMeters(a: LngLat, b: LngLat) {
   return geolib.getDistance(
@@ -60,7 +76,7 @@ export function getDistanceMeters(a: LngLat, b: LngLat) {
 }
 
 function getSpeedMilesPerHour(speedMetersPerSecond: number): number {
-  return (speedMetersPerSecond / 1609.344) * 3600;
+  return geolib.convertUnit('mi', speedMetersPerSecond) * 3600;
 }
 
 function getSpeedClass(speedMph): SpeedClass {
@@ -110,7 +126,8 @@ export function getTripName(fileName: string) {
   return fileName.replace('.json', '');
 }
 
-function getTripBounds(locationSamples: LngLat[]): TripCoordinateBounds | undefined {
+function getTripBounds(locationSamples: LngLat[]):
+  TripCoordinateBounds | undefined {
   if (!locationSamples.length) return undefined;
   return {
     west: Math.min(...locationSamples.map(sample => sample.lng)),
@@ -127,6 +144,10 @@ export function createTrip(tripName: string, locationSamples: LngLat[]): Trip {
   return {
     name: tripName,
     locationSamples,
+    startLocation: locationSamples.length ? locationSamples[0] : undefined,
+    endLocation:
+      locationSamples.length ? locationSamples[locationSamples.length - 1]
+        : undefined,
     tripBounds: getTripBounds(locationSamples),
     speedSamples: speedSamples,
     averageSpeed: getAverageSpeed(speedSamples),

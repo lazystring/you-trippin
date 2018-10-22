@@ -7,11 +7,8 @@
 
 ## TODO:
 
-* Retrieve list of trips from data/trips/
-* Render map
-* Render lat/lng coords on map as simple markers
-* Calculate distance between two consecutive lat/lng points
-* Use distance to calculate speed and render as a color
-* Find start and end city and display with trip.
+* Define sample frequency for plotting speeds (more than once per minute)
+* Make everything a little more responsive
+* Possibly look into better styling...
 
 ![trippin](http://memecrunch.com/meme/B4U5/man-you-trippin/image.jpg)
