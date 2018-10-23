@@ -1,5 +1,5 @@
-import { GeoJSONSourceRaw, LngLat, Layer, GeoJSONSource } from 'mapbox-gl';
 import { Feature } from 'geojson';
+import { GeoJSONSourceRaw, Layer, LngLat } from 'mapbox-gl';
 
 /** Converts a LngLat object to an array of coords, because nobody can agree. */
 export function getGeoJsonCoordinates(locationSample: LngLat): [number, number] {

@@ -1,11 +1,13 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { animate, style, transition, trigger } from '@angular/animations';
-import { TripReportStore } from '../stores/trip-report.store';
 import * as c3 from 'c3';
-import { autorun } from 'mobx';
-import { computed } from 'mobx-angular';
-import { TripMapStore } from '../stores/trip-map.store';
 import * as geolib from 'geolib';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { autorun } from 'mobx';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { computed } from 'mobx-angular';
+
+import { TripMapStore } from '../stores/trip-map.store';
+import { TripReportStore } from '../stores/trip-report.store';
+
 
 /** Number of samples to display on the chart. */
 const NUM_SAMPLES_TO_PLOT = 100;
@@ -104,7 +106,7 @@ export class TripReportComponent implements OnInit {
     this.chart.resize({ height: reportCardHeightPx - 100 });
   }
 
-  @computed get formattedDistanceMiles() {
+  @computed get formattedDistance() {
     const distanceMiles =
       geolib.convertUnit('mi', this.mapStore.selectedTrip.totalDistanceMeters);
     return `${distanceMiles.toFixed(2)} mile`;

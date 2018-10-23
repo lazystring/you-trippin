@@ -1,14 +1,15 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild, ElementRef } from '@angular/core';
-import { TripService } from '../trip.service';
 import * as mapboxgl from 'mapbox-gl';
-import { environment } from '../../environments/environment';
-import { TripMapStore } from '../stores/trip-map.store';
 import { autorun } from 'mobx';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { computed } from 'mobx-angular';
-import { SpeedClass, Trip, getClosestSpeedSample } from '../trip';
+
+import { createTripRouteData, createTripRouteLayer, createTripRouteSource, getGeoJsonCoordinates } from '../map';
+import { environment } from '../../environments/environment';
+import { getClosestSpeedSample, SpeedClass, Trip } from '../trip';
 import { LocationService } from '../location.service';
-import { createTripRouteLayer, createTripRouteData, createTripRouteSource, getGeoJsonCoordinates } from '../map';
+import { TripMapStore } from '../stores/trip-map.store';
 import { TripReportStore } from '../stores/trip-report.store';
+import { TripService } from '../trip.service';
 
 const DEFAULT_MAPBOX_OPTIONS: mapboxgl.MapboxOptions = {
   container: 'map',

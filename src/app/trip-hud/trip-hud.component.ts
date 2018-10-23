@@ -1,6 +1,8 @@
+import * as geolib from 'geolib';
 import { Component, OnInit } from '@angular/core';
-import { TripMapStore } from '../stores/trip-map.store';
 import { computed } from 'mobx-angular';
+
+import { TripMapStore } from '../stores/trip-map.store';
 import { TripReportStore } from '../stores/trip-report.store';
 
 function formatDurationSeconds(duration: number): string {
@@ -33,7 +35,7 @@ export class TripHudComponent implements OnInit {
       this.mapStore.selectedTrip.totalTimeIdleSeconds);
   }
 
-  @computed get formattedTripDuration(): string {
+  @computed get formattedDuration(): string {
     return formatDurationSeconds(this.mapStore.selectedTrip.totalTimeSeconds);
   }
 
@@ -41,6 +43,12 @@ export class TripHudComponent implements OnInit {
     return Math.round(
       Math.max(...this.mapStore.selectedTrip.speedSamples.map(
         sample => sample.speedMph)));
+  }
+
+  @computed get formattedDistance() {
+    const distanceMiles =
+      geolib.convertUnit('mi', this.mapStore.selectedTrip.totalDistanceMeters);
+    return `${distanceMiles.toFixed(2)} MI`;
   }
 
   onClickTripReportButton() {

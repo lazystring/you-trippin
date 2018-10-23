@@ -1,8 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { TripService } from '../trip.service';
-import { TripMapStore } from '../stores/trip-map.store';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+
 import { Trip } from '../trip';
+import { TripMapStore } from '../stores/trip-map.store';
 import { TripMenuStore } from '../stores/trip-menu.store';
+import { TripService } from '../trip.service';
 
 @Component({
   selector: 'app-trip-menu',

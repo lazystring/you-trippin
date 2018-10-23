@@ -1,5 +1,6 @@
+import { action, computed, observable } from 'mobx';
 import { Injectable } from '@angular/core';
-import { observable, action, computed } from 'mobx';
+
 import { Trip } from '../trip';
 
 /** Store for shared data pertaining to the trip. */

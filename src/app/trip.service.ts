@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { createTrip, getTripName, Trip } from './trip';
 import { HttpClient } from '@angular/common/http';
-import { Trip, getTripName, createTrip } from './trip';
-import { Observable, of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
 import { LngLat } from 'mapbox-gl';
+import { map, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 import { TripMapStore } from './stores/trip-map.store';
 
 const TRIPS_ROUTE = '/data/trips';
