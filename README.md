@@ -4,6 +4,15 @@ Start up a tile server using tileserver-gl or similar. Or just go out into the i
 
 To start a local instance of the app, just run `ng serve --open` and you're good to go.
 
+## Features
+
+* Search through recorded trips.
+* Visualize distribution of speeds as color gradient.
+* Hover over parts of the trip to see the recorded speed.
+* View computed stats from the trip.
+* View chart of speed over time.
+* Wonder aimlessly around the map until you find cool things.
+
 ## Requirements
 
 * Read JSON files of trip data sampled at 1 Hz.
