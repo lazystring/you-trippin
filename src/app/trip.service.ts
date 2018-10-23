@@ -16,7 +16,7 @@ const TRIPS_ROUTE = '/data/trips';
   providedIn: 'root'
 })
 export class TripService {
-  /** Cache trips as we fetch them since they are guarenteed not to change. */
+  /** Cache trips as we fetchhem  tsince they are guarenteed not to change. */
   private cachedTrips = new Map<string, Trip>();
 
   constructor(private http: HttpClient, private uiStore: TripMapStore) { }

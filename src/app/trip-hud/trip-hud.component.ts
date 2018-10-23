@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TripMapStore } from '../stores/trip-map.store';
 import { computed } from 'mobx-angular';
 import { TripReportStore } from '../stores/trip-report.store';
@@ -35,6 +35,12 @@ export class TripHudComponent implements OnInit {
 
   @computed get formattedTripDuration(): string {
     return formatDurationSeconds(this.mapStore.selectedTrip.totalTimeSeconds);
+  }
+
+  @computed get formattedTopSpeed(): number {
+    return Math.round(
+      Math.max(...this.mapStore.selectedTrip.speedSamples.map(
+        sample => sample.speedMph)));
   }
 
   onClickTripReportButton() {

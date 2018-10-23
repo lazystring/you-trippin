@@ -1,4 +1,4 @@
-<div *mobxAutorun="{ dontDetach: true }">
+<div *mobxAutorun>
   <div *ngIf="mapStore.selectedTrip" class="hud-container">
     <div class="hud-info-card">
       Trip: {{ mapStore.selectedTrip.name }}
@@ -7,13 +7,16 @@
       Average Speed: {{ formattedAverageSpeed }} MPH
     </div>
     <div class="hud-info-card">
+      Top Speed: {{ formattedTopSpeed }} MPH
+    </div>
+    <div class="hud-info-card">
       Time Idle: {{ formattedTotalTimeIdle }}
     </div>
     <div class="hud-info-card">
       Duration: {{ formattedTripDuration }}
     </div>
 
-    <div class="trip-report-button" (click)="onClickTripReportButton()">
+    <div class="you-trippin-button trip-report-button" (click)="onClickTripReportButton()">
       View Trip Report
     </div>
   </div>

@@ -2,9 +2,13 @@ import { Component, OnInit, ChangeDetectionStrategy, ViewChild, ElementRef, Chan
 import { animate, style, transition, trigger } from '@angular/animations';
 import { TripReportStore } from '../stores/trip-report.store';
 import * as c3 from 'c3';
-import { autorun, computed } from 'mobx';
+import { autorun } from 'mobx';
+import { computed } from 'mobx-angular';
 import { TripMapStore } from '../stores/trip-map.store';
 import * as geolib from 'geolib';
+
+/** Number of samples to display on the chart. */
+const NUM_SAMPLES_TO_PLOT = 100;
 
 @Component({
   selector: 'app-trip-report',
@@ -46,11 +50,13 @@ export class TripReportComponent implements OnInit {
         data: {
           x: 'x',
           columns: this.getTripDataColumns(),
+          type: 'spline',
         },
         axis: {
           x: {
             tick: {
-              format: timeMinutes => `${timeMinutes} MIN`,
+              format:
+                (timeSeconds: number) => `${(timeSeconds / 60).toFixed(2)} MIN`,
             }
           }
         }
@@ -65,14 +71,15 @@ export class TripReportComponent implements OnInit {
     if (!this.reportStore.tripToReport) return [[], []];
     const trip = this.reportStore.tripToReport;
 
-    // Timestamps are recorded in minutes.
-    const totalTimeMinutes = Math.floor(trip.totalTimeSeconds / 60);
-    const timeAxis = [
-      'x',
-      ...Array.from(Array(totalTimeMinutes).keys()).map(x => x + 1)];
-
-    const speedAxis =
-      ['Speed (MPH)', ...trip.speedSamples.map(sample => sample.speedMph)];
+    // Timestamps are recorded in seconds.
+    const timeAxis: (string | number)[] = ['x'];
+    const speedAxis: (string | number)[] = ['Speed (MPH)'];
+    const frequency =
+      Math.floor(trip.speedSamples.length / NUM_SAMPLES_TO_PLOT);
+    for (let i = 0; i < trip.speedSamples.length; i += frequency) {
+      timeAxis.push(i);
+      speedAxis.push(trip.speedSamples[i].speedMph);
+    }
 
     return [timeAxis, speedAxis];
   }

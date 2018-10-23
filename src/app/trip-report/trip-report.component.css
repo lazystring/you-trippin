@@ -1,11 +1,13 @@
 .report-card {
   position: absolute;
   top: 140px;
-  right: 10px;
-  background-color: rgba(255, 255, 255, 0.8);
-  width: calc(100% - 280px);
-  height: calc(100% - 620px);
+  right: 20px;
+  background-color: white;
+  width: calc(100% - 300px);
+  height: calc(100% - 600px);
   padding: 20px;
+  border-radius: 2px;
+  box-shadow: var(--you-trippin-shallow);
 }
 
 .report-header {

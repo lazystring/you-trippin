@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { observable, computed, action } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import { Trip, TripSpeedSample } from '../trip';
 
 /**
@@ -17,5 +17,10 @@ export class TripMapStore {
 
   @action setHoverSpeedSample(sample: TripSpeedSample | undefined) {
     this.hoverSpeedSample = sample;
+  }
+
+  @computed get formattedCurrentSpeed(): number {
+    if (!this.hoverSpeedSample) return 0;
+    return Math.round(this.hoverSpeedSample.speedMph);
   }
 }

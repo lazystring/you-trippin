@@ -1,47 +1,37 @@
 :host {
-  position: absolute;
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 10px);  
   margin: 0 10px 0;
-  padding-top: 10px;
-  height: calc(100vh - 10px);
-  width: 200px;
-  z-index: 1;
   overflow: scroll;
+  padding: 10px;
+  position: absolute;      
+  width: 200px;
+  z-index: 1;  
 }
 
 .trip-search-input {
   border: none;
-  border-radius: 8px;
+  border-radius: 2px;
+  box-shadow: var(--you-trippin-shallow-shadow);
   height: 20px;
   padding: 10px;
-  margin-bottom: 20px;
-  width: calc(100% - 20px);
+  margin: 10px 0 10px;
+  transition: var(--you-trippin-shallow-shadow-transition);
+  width: calc(100% - 20px);    
+}
+
+.trip-search-input:focus {
+  box-shadow: var(--you-trippin-shallow-shadow-raised);
 }
 
 .trip-search-input:focus, textarea {
   outline: none;
 }
 
-.trip-button {
-  background-color: white;
-  padding: 10px 20px;
-  display: block;
-  width: 100%;
-  min-height: 44px;
+.trip-button {  
   margin: 10px 0;
-  text-transform: uppercase;
-  font-family: var(--you-trippin-font-primary);
-  color: black;
-  font-weight: 700;
-  border: 1px solid grey;
-  border-radius: 8px;
-  transition: 200ms ease-in border;
-}
-
-.trip-button:hover {
-  cursor: pointer;
-  border-color: black;
+  width: 100%;
 }
 
 .trip-button:focus {

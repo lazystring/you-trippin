@@ -2,7 +2,7 @@
   <div *ngIf="menuStore.tripNames.length">
     <input #tripSearchTerm (keyup)="onSearch(tripSearchTerm.value)" class="trip-search-input" placeholder="Trip name">
 
-    <button class="trip-button" *ngFor="let name of menuStore.filteredTripNames" (click)="onSelectTrip(name)">
+    <button class="you-trippin-button trip-button" *ngFor="let name of menuStore.filteredTripNames" (click)="onSelectTrip(name)">
       Trip {{name}}
     </button>
 
