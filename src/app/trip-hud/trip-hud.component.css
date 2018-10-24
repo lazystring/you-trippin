@@ -10,24 +10,28 @@
   border-radius: 2px;
   box-shadow: var(--you-trippin-shallow-shadow);
   margin: 5px 0;
-  padding: 2px 20px;
-  line-height: 40px;
+  overflow: visible;
+  padding: 10px 20px;
+  line-height: 24px;
   max-height: 40px;
 }
 
 .trip-report-button {
-  line-height: 40px;
-  max-height: 40px;
+  margin-top: 10px;
+  width: 100%;
 }
 
 @media only screen and (max-height: 900px) {
   .hud-container {
-    display: flex;
-    flex-direction: row;
-    overflow: scroll;
     right: 0;
     left: 0;
     width: auto;
+  }
+
+  .hud-info-cards {
+    display: flex;
+    flex-direction: row;    
+    overflow: scroll;
     padding: 0 10px 2px;
   }
 
@@ -35,5 +39,19 @@
     min-width: max-content;
     margin: 0 10px;
     padding: 10px 20px;
+  }
+
+  .trip-report-button {
+    position: fixed;
+    top: 20px;
+    left: 230px;
+    width: 200px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .trip-report-button {
+    left: 10px;
+    top: 70px;
   }
 }

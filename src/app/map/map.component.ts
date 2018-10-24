@@ -105,6 +105,8 @@ export class MapComponent implements OnInit {
 
     // Close the trip report when clicking on the map.
     this.map.on('mousedown', () => this.reportStore.setTripToReport(undefined));
+    this.map.on('touchstart',
+      () => this.reportStore.setTripToReport(undefined));
   }
 
   private moveSpeedHoverCard(x: number, y: number) {

@@ -59,6 +59,7 @@ export class TripReportComponent implements OnInit {
             tick: {
               format:
                 (timeSeconds: number) => `${(timeSeconds / 60).toFixed(2)} MIN`,
+              count: 10,
             }
           }
         }

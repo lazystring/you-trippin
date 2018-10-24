@@ -1,4 +1,5 @@
 import * as geolib from 'geolib';
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { computed } from 'mobx-angular';
 
@@ -16,7 +17,15 @@ function formatDurationSeconds(duration: number): string {
 @Component({
   selector: 'app-trip-hud',
   templateUrl: './trip-hud.component.html',
-  styleUrls: ['./trip-hud.component.css']
+  styleUrls: ['./trip-hud.component.css'],
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('200ms 200ms ease-in', style({ opacity: 1 }))
+      ]),
+    ])
+  ],
 })
 export class TripHudComponent implements OnInit {
 
