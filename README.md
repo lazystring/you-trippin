@@ -1,3 +1,7 @@
+## Don't trip, there's a live version
+
+Head to https://trippin.johnbojorquez.com (hopefully mobile-friendly, definitely ultrawide monitor-friendly).
+
 ## Development
 
 Start up a tile server using tileserver-gl or similar. Or just go out into the internets and find an existing tileserver (mapbox has some). Replace the `tileserver` url in `environment.ts`.
