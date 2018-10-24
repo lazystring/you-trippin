@@ -20,6 +20,12 @@ import { TripService } from '../trip.service';
       transition(':leave', [
         animate('200ms ease-in', style({ transform: 'translateX(-110%)' }))
       ])
+    ]),
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('200ms 200ms ease-in', style({ opacity: 1 }))
+      ]),
     ])
   ],
 })
@@ -46,6 +52,7 @@ export class TripMenuComponent implements OnInit {
   }
 
   onClickBackButton() {
+    this.menuStore.setFilter('');
     this.mapStore.setSelectedTrip(undefined);
   }
 }

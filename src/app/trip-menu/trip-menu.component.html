@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <button *ngIf="mapStore.selectedTrip" class="you-trippin-button trip-button" (click)="onClickBackButton()">
+  <button *ngIf="mapStore.selectedTrip" class="you-trippin-button back-button" (click)="onClickBackButton()" [@fadeIn]>
     Back
   </button>
 </div>
