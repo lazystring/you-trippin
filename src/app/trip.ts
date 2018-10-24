@@ -3,12 +3,13 @@ import { LngLat } from 'mapbox-gl';
 
 /** An attempt to classify speeds to help with visualization. */
 export enum SpeedClass {
-  IDLE = 'IDLE',          // 0 MPH
-  SLOW = 'SLOW',          // 0 - 30 MPH
-  MODERATE = 'MODERATE',  // 30 - 60 MPH
-  FAST = 'FAST',          // 60 - 90 MPH
-  EXTREME = 'EXTREME',    // 90 - 120 MPH
-  INSANE = 'INSANE',      // 120+ MPH
+  IDLE = 'IDLE',               // 0 MPH
+  SLOW = 'SLOW',               // 0 - 25 MPH
+  RESIDENTIAL = 'RESIDENTIAL', // 25 - 35 MPH
+  MODERATE = 'MODERATE',       // 35 - 55 MPH
+  HIGHWAY = 'HIGHWAY',         // 55 - 70 MPH
+  FAST = 'FAST',               // 70 - 90 MPH
+  EXTREME = 'EXTREME',         // 90+ MPH
 }
 
 /** Represents a speed sample computed from two sampled coordinate points. */
@@ -81,12 +82,13 @@ function getSpeedMilesPerHour(speedMetersPerSecond: number): number {
 
 function getSpeedClass(speedMph): SpeedClass {
   if (speedMph === 0) return SpeedClass.IDLE;
-  if (speedMph > 0 && speedMph <= 30) return SpeedClass.SLOW;
-  if (speedMph > 30 && speedMph <= 60) return SpeedClass.MODERATE;
-  if (speedMph > 60 && speedMph <= 90) return SpeedClass.FAST;
-  if (speedMph > 90 && speedMph <= 120) return SpeedClass.EXTREME;
+  if (speedMph > 0 && speedMph <= 25) return SpeedClass.SLOW;
+  if (speedMph > 25 && speedMph <= 35) return SpeedClass.RESIDENTIAL;
+  if (speedMph > 35 && speedMph <= 55) return SpeedClass.MODERATE;
+  if (speedMph > 55 && speedMph <= 70) return SpeedClass.HIGHWAY;
+  if (speedMph > 70 && speedMph <= 90) return SpeedClass.FAST;
 
-  return SpeedClass.INSANE;
+  return SpeedClass.EXTREME;
 }
 
 function getTripSpeedSamples(locationSamples: LngLat[]): TripSpeedSample[] {

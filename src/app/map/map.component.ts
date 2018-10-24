@@ -20,12 +20,13 @@ const DEFAULT_MAPBOX_OPTIONS: mapboxgl.MapboxOptions = {
 
 // TODO: Improve gradient
 const SPEED_CLASS_TO_COLOR = new Map<SpeedClass, string>([
-  [SpeedClass.IDLE, '#ff0000'],
-  [SpeedClass.SLOW, '#ff6600'],
-  [SpeedClass.MODERATE, '#ffee00'],
-  [SpeedClass.FAST, '#00ff00'],
-  [SpeedClass.EXTREME, '#00ffc3'],
-  [SpeedClass.INSANE, '#00cbff'],
+  [SpeedClass.IDLE, '#ffffff'],         // Black
+  [SpeedClass.SLOW, '#ff0000'],         // Red
+  [SpeedClass.RESIDENTIAL, '#ff6600'],  // Orange
+  [SpeedClass.MODERATE, '#ffcc00'],     // Yellow
+  [SpeedClass.HIGHWAY, '#b6ff00'],      // Greenish yellow
+  [SpeedClass.FAST, '#00ff00'],         // Green
+  [SpeedClass.EXTREME, '#00ffc3'],      // Greenish blue
 ]);
 
 function getLineProgress(trip: Trip): (number | string)[] {
