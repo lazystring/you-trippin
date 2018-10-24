@@ -1,3 +1,4 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { Trip } from '../trip';
@@ -9,7 +10,18 @@ import { TripService } from '../trip.service';
   selector: 'app-trip-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './trip-menu.component.html',
-  styleUrls: ['./trip-menu.component.css']
+  styleUrls: ['./trip-menu.component.css'],
+  animations: [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({ transform: 'translateX(-110%)' }),
+        animate('200ms 100ms ease-in', style({ transform: 'translateX(0%)' }))
+      ]),
+      transition(':leave', [
+        animate('200ms ease-in', style({ transform: 'translateX(-110%)' }))
+      ])
+    ])
+  ],
 })
 export class TripMenuComponent implements OnInit {
   private tripNames: string[];
@@ -31,5 +43,9 @@ export class TripMenuComponent implements OnInit {
 
   onSearch(tripSearchTerm: string) {
     this.menuStore.setFilter(tripSearchTerm);
+  }
+
+  onClickBackButton() {
+    this.mapStore.setSelectedTrip(undefined);
   }
 }

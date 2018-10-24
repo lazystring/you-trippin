@@ -53,6 +53,7 @@ export class MapComponent implements OnInit {
   private map?: mapboxgl.Map;
   private startPopup?: mapboxgl.Popup;
   private finishPopup?: mapboxgl.Popup;
+  private currenPosition?: Position;
 
   // Hover card showing the speed at the location of the user's cursor.
   // Seriously Angular, is there not a nicer way to query for elements?
@@ -78,8 +79,11 @@ export class MapComponent implements OnInit {
     this.map = new mapboxgl.Map(DEFAULT_MAPBOX_OPTIONS);
     this.map.addControl(new mapboxgl.NavigationControl());
     this.locationService.getPosition().subscribe(
-      position => this.flyTo(
-        position.coords.latitude, position.coords.longitude));
+      position => {
+        this.currenPosition = position;
+        this.flyTo(
+          position.coords.latitude, position.coords.longitude);
+      });
 
     // Add layer for rendering trip routes.
     this.map.on('load', () => {
@@ -99,7 +103,7 @@ export class MapComponent implements OnInit {
 
       this.mapStore.setHoverSpeedSample(closest);
       const { clientX, clientY } = e.originalEvent;
-      this.movSpeedHoverCard(clientX, clientY);
+      this.moveSpeedHoverCard(clientX, clientY);
     });
 
     this.map.on('mouseleave', 'route', () => this.hideSpeedHoverCard());
@@ -108,7 +112,7 @@ export class MapComponent implements OnInit {
     this.map.on('mousedown', () => this.reportStore.setTripToReport(undefined));
   }
 
-  private movSpeedHoverCard(x: number, y: number) {
+  private moveSpeedHoverCard(x: number, y: number) {
     if (!this.hoverSpeedCard) return;
     this.hoverSpeedCard.style.opacity = '1';
     this.hoverSpeedCard.style.top = `${y}px`;
@@ -125,29 +129,27 @@ export class MapComponent implements OnInit {
   }
 
   updateSelectedTrip() {
-    if (!this.map || !this.mapStore.selectedTrip) return;
+    if (!this.map) return;
+
     const selectedTrip = this.mapStore.selectedTrip;
+    const locationSamples = selectedTrip ? selectedTrip.locationSamples : [];
 
-    // Fly to center of selected path.
-    const tripBounds = selectedTrip.tripBounds;
-    this.map.fitBounds([
-      tripBounds.west, tripBounds.south, tripBounds.east, tripBounds.north], {
-        padding: 240,
-      });
-
-    const source = this.map.getSource('route-source') as mapboxgl.GeoJSONSource;
-    if (!source) return;
-    source.setData(createTripRouteData(selectedTrip.locationSamples));
-    this.map.setPaintProperty('route', 'line-gradient', [
-      'interpolate',
-      ['linear'],
-      ['line-progress'],
-      ...getLineProgress(selectedTrip),
-    ]);
-
+    this.setTripMapData(locationSamples);
     this.removePopups();
-    this.startPopup = this.addPopup(selectedTrip.startLocation, 'Start');
-    this.finishPopup = this.addPopup(selectedTrip.endLocation, 'Finish');
+
+    if (selectedTrip) {
+      this.renderTripGradient(selectedTrip);
+      this.fitBounds(selectedTrip);
+      this.startPopup = this.addPopup(selectedTrip.startLocation, 'Start');
+      this.finishPopup = this.addPopup(selectedTrip.endLocation, 'Finish');
+    } else if (this.currenPosition) {
+      // Delay resetting position to allow for smooth transition.
+      setTimeout(() => {
+        this.flyTo(
+          this.currenPosition.coords.latitude,
+          this.currenPosition.coords.longitude);
+      }, 100);
+    }
   }
 
   addPopup(location: mapboxgl.LngLat | undefined, text: string):
@@ -155,6 +157,31 @@ export class MapComponent implements OnInit {
     if (!location) return undefined;
     return new mapboxgl.Popup({ closeOnClick: false, closeButton: false })
       .setLngLat(getGeoJsonCoordinates(location)).setHTML(text).addTo(this.map);
+  }
+
+  setTripMapData(locationSamples: mapboxgl.LngLat[]) {
+    const source = this.map.getSource('route-source') as mapboxgl.GeoJSONSource;
+    if (!source) return;
+    source.setData(createTripRouteData(locationSamples));
+  }
+
+  renderTripGradient(trip: Trip) {
+    this.map.setPaintProperty('route', 'line-gradient', [
+      'interpolate',
+      ['linear'],
+      ['line-progress'],
+      ...getLineProgress(trip),
+    ]);
+  }
+
+  fitBounds(trip: Trip) {
+    if (!trip.tripBounds) return;
+    this.map.fitBounds([
+      trip.tripBounds.west,
+      trip.tripBounds.south,
+      trip.tripBounds.east,
+      trip.tripBounds.north
+    ], { padding: 20 });
   }
 
   removePopups() {

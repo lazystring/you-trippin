@@ -1,15 +1,29 @@
 .report-card {
   position: absolute;
   top: 140px;
-  right: 20px;
+  right: 40px;
+  left: 40px;
   background-color: white;
-  width: calc(100% - 300px);
+  width: auto;
   height: calc(100% - 600px);
   padding: 20px;
   border-radius: 2px;
-  box-shadow: var(--you-trippin-shallow);
+  box-shadow: var(--you-trippin-shallow-shadow);
 }
 
 .report-header {
   margin-bottom: 20px;
+}
+
+@media only screen and (max-height: 900px) {
+  .report-card {
+    height: calc(100% - 340px);
+  }
+}
+
+@media only screen and (max-height: 900px) {
+  .report-card {
+    left: 5px;
+    right: 5px;
+  }
 }

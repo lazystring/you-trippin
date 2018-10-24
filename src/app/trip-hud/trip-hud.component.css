@@ -9,9 +9,36 @@
   border-radius: 2px;
   box-shadow: var(--you-trippin-shallow-shadow);
   margin: 5px 0;
-  padding: 10px 20px;
+  padding: 2px 20px;
+  line-height: 40px;
+  max-height: 40px;
 }
 
 .trip-report-button {
-  margin: 10px 0;
+  line-height: 40px;
+  max-height: 40px;
+}
+
+@media only screen and (max-height: 900px) {
+  .hud-container {
+    display: flex;
+    flex-direction: row;
+    overflow: scroll;
+    right: 0;
+    left: 0;
+    width: auto;
+    padding: 0 10px 2px;
+  }
+
+  .hud-info-card, .trip-report-button {
+    min-width: max-content;
+    margin: 0 10px;
+    padding: 10px 20px;
+  }
+
+  .trip-report-button {
+    position: absolute;
+    bottom: 100px;
+    right: 20px;
+  }
 }
