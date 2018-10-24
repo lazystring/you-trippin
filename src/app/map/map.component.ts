@@ -57,12 +57,7 @@ export class MapComponent implements OnInit {
 
   // Hover card showing the speed at the location of the user's cursor.
   // Seriously Angular, is there not a nicer way to query for elements?
-  private hoverSpeedCard: HTMLElement;
-  @ViewChild('hoverSpeedCard') set hoverSpeedCardRef(
-    ref: ElementRef | undefined) {
-    if (!ref) return;
-    this.hoverSpeedCard = ref.nativeElement;
-  }
+  @ViewChild('hoverSpeedCard') hoverSpeedCard: ElementRef;
 
   constructor(private tripService: TripService,
     private mapStore: TripMapStore, private locationService: LocationService, private reportStore: TripReportStore) {
@@ -114,14 +109,14 @@ export class MapComponent implements OnInit {
 
   private moveSpeedHoverCard(x: number, y: number) {
     if (!this.hoverSpeedCard) return;
-    this.hoverSpeedCard.style.opacity = '1';
-    this.hoverSpeedCard.style.top = `${y}px`;
-    this.hoverSpeedCard.style.left = `${x}px`;
+    this.hoverSpeedCard.nativeElement.style.opacity = '1';
+    this.hoverSpeedCard.nativeElement.style.top = `${y}px`;
+    this.hoverSpeedCard.nativeElement.style.left = `${x}px`;
   }
 
   private hideSpeedHoverCard() {
     if (!this.hoverSpeedCard) return;
-    this.hoverSpeedCard.style.opacity = '0';
+    this.hoverSpeedCard.nativeElement.style.opacity = '0';
   }
 
   private flyTo(lat: number, lng: number) {

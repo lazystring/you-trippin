@@ -2,6 +2,7 @@
   bottom: 40px;
   position: absolute;  
   right: 20px;
+  z-index: 2;
 }
 
 .hud-info-card {
@@ -34,11 +35,5 @@
     min-width: max-content;
     margin: 0 10px;
     padding: 10px 20px;
-  }
-
-  .trip-report-button {
-    position: absolute;
-    bottom: 100px;
-    right: 20px;
   }
 }

@@ -6,6 +6,7 @@ export function getGeoJsonCoordinates(locationSample: LngLat): [number, number] 
   return [locationSample.lng, locationSample.lat];
 }
 
+/** Creates a set of data to add to a mapboxgl source. */
 export function createTripRouteData(tripLocationSamples: LngLat[]): Feature {
   return {
     type: 'Feature',
@@ -27,6 +28,7 @@ export function createTripRouteSource(tripLocationSamples: LngLat[]):
   };
 }
 
+/** Creates a mapboxgl layer to hold the data and styling for the trip route. */
 export function createTripRouteLayer(): Layer {
   return {
     id: 'route',

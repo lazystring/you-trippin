@@ -129,6 +129,7 @@ export function getTripName(fileName: string) {
 function getTripBounds(locationSamples: LngLat[]):
   TripCoordinateBounds | undefined {
   if (!locationSamples.length) return undefined;
+
   return {
     west: Math.min(...locationSamples.map(sample => sample.lng)),
     south: Math.min(...locationSamples.map(sample => sample.lat)),
@@ -137,10 +138,12 @@ function getTripBounds(locationSamples: LngLat[]):
   };
 }
 
+/** Creates a Trip, deriving all stats from the given set of coordinates. */
 export function createTrip(tripName: string, locationSamples: LngLat[]): Trip {
   const speedSamples = getTripSpeedSamples(locationSamples);
   const totalDistance = speedSamples.reduce(
     (accum, sample) => accum + sample.distanceMeters, 0);
+
   return {
     name: tripName,
     locationSamples,

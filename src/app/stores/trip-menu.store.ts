@@ -5,7 +5,7 @@ import { computed, action } from 'mobx-angular';
 /** Store for shared data pertaining to the trip menu. */
 @Injectable()
 export class TripMenuStore {
-  @observable tripNames: string[] = [];
+  @observable tripNames?: string[];
   @observable filter = '';
 
   /** A list of trip name results with the user's filter applied. */
